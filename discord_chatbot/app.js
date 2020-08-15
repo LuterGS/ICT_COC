@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
+const { send } = require('process');
 
 real_token = ' ';
 test_token = ' ';
@@ -8,6 +9,8 @@ test_token = ' ';
 data = [];
 select = '';
 index = 0;
+user_alert = false;
+today_alert = false;
 
 function getData(input_city, msg){
   axios.get('http://175.193.68.230/sendData', {
@@ -25,14 +28,43 @@ function getData(input_city, msg){
   });
 }
 
+function send_alert(msg){
+  if(user_alert){
+    var date = new Date();
+    console.log(date.getSeconds());
+    if(date.getSeconds() == 19 && !today_alert){
+      msg.channel.send('19초 알림 (19시 알림으로 변경 예정)')
+      today_alert = true;
+    }
+    if(date.getSeconds() == 23) today_alert = false;
+  }
+}
+
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
+
 });
+
 
 client.on('message', msg => {
   if (msg.content === 'ping') {
     msg.reply('Pong!');
   }
+
+  if (msg.content.slice(0, 2) === '알림') {
+    let onoff =  msg.content.split(' ')[1];
+    if(onoff.slice(0, 1) == '켜') {
+      user_alert = true;
+      today_alert = false;
+      msg.reply('19초 알림을 켭니다. (19시 알림으로 변경 예정)');
+      setInterval(send_alert.bind(null, msg), 1000);
+    }
+    if(onoff.slice(0, 1) == '꺼') {
+      user_alert = false;
+      msg.reply('알림을 끕니다.');
+    }
+  }
+
   
   if (msg.content.slice(-3) === '새소식'){
     select = msg.content.split(' ')[0];
