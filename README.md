@@ -4,6 +4,7 @@
 
 ### article 
 : 서울시공공데이터 OPEN API로부터 데이터를 받아오고 정리하는 패키지
+
 **필요 라이브러리**
 * beautifulsoup https://www.crummy.com/software/BeautifulSoup/bs4/doc/#installing-beautiful-soup
 
