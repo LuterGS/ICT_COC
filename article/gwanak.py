@@ -26,7 +26,7 @@ def clean_ptags(ptags):
 
 
 # xml을 parsing하여 게시글마다 Article 객체 생성 후 객체들을 리스트에 담아 반환
-def GWNK_articles(article_count):
+def get_gwanak(article_count):
     articles = []
     rows = clean_xml(article_count)
     for row in rows:
@@ -46,6 +46,6 @@ def GWNK_articles(article_count):
 
 
 if __name__ == "__main__":
-    gwanak_articles = GWNK_articles(5)
+    gwanak_articles = get_gwanak(5)
     for gwanak_article in gwanak_articles:
         gwanak_article.print_article()
