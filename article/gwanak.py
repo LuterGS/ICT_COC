@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
-from Article import Article
+from article.Article import Article
 
 
 # API에서 데이터 xml 획득 및 게시글 기준으로 정리
