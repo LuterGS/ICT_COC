@@ -16,12 +16,12 @@ def clean_xml(article_count):
 
 # xml <p> 태그 정리
 def clean_ptags(ptags):
-    result = []
+    result = ""
     for ptag in ptags:
         text = ptag.get_text(strip=True)
         text = text.replace(u'\xa0', u' ')
         if len(text):
-            result.append(text)
+            result = result + text + " "
     return result
 
 
@@ -46,6 +46,13 @@ def get_gwanak(article_count):
 
 
 if __name__ == "__main__":
+    #url = "http://openapi.seoul.go.kr:8088/766248667572616d373354516d6b42/xml/GwanakNewsList/1/{}/".format(5)
+    #response = requests.get(url)
+    #soup = BeautifulSoup(response.text, 'html.parser')
+    #pretty_xml = soup.prettify(formatter=None)
+    #pretty_soup = BeautifulSoup(pretty_xml, 'html.parser')
+    #print(pretty_soup)
+
     gwanak_articles = get_gwanak(5)
     for gwanak_article in gwanak_articles:
         gwanak_article.print_article()
