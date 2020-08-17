@@ -1,9 +1,9 @@
 from AI.summarize.summary import line3_summary
-from article.gwanak import get_gwanak
+from article.get_articles import get_articles
 from DB.main import query_mysql
 
 if __name__ == "__main__":
-    gwanark_article = get_gwanak(5)
+    gwanark_article = get_articles("gwanak", 5)
     summary3 = []
     for test in gwanark_article:
         summary3.append(line3_summary(test.content, sentence_tokenizer="jum"))

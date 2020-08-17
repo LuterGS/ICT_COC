@@ -27,4 +27,3 @@ class Article:
         print("content: ", self.content)
         print("date: ", self.date)
         print("url: ", self.url)
-
