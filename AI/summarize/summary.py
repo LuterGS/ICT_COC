@@ -7,9 +7,10 @@ import re
 def line3_summary(text, sentence_tokenizer="re", decay_factor=0.85, max_iteration_num=15):
     splited_sentence, splited_sentence_num = __get_splited_sentence(text, sentence_tokenizer)
     keyword = __get_keyword(splited_sentence, decay_factor, max_iteration_num)
-    if keyword == "NULL":
+    if keyword == "NULL" == 0:
         print("문장 요약 실패")
         return text
+    print(keyword)
     result = __get_score(splited_sentence, splited_sentence_num, keyword)
     final_result = result[0][1] + "\n" + result[1][1] + "\n" + result[2][1]
     return final_result
@@ -28,7 +29,10 @@ def __get_splited_sentence(whole_text, sentence_tokenizer="re"):
         splited = kss.split_sentences(whole_text.replace("\n", ""))
     elif sentence_tokenizer == "enter":  # 아직 구현중, normalize 부분으로 찾으면 될거같은데...
         splited = whole_text.split("\n")
+    elif sentence_tokenizer == "jum":
+        splited = whole_text.split(".")
     splited = [normalize(sentence, english=True, number=True) for sentence in splited]
+    print(splited)
     splited_num = len(splited)
 
     return splited, splited_num
@@ -39,7 +43,7 @@ def __get_keyword(splited_sentence, decay_factor, max_iteration_num):
         decay_factor = decay_factor  # 이 단어가 계속 선호하는 단어인지 (소멸되지 않을 확률), 보통 85%로 잡는다.
         max_iteration_num = max_iteration_num  # 최대 반복횟수
         keyword, _, _ = pick_keyword.extract(splited_sentence, decay_factor, max_iteration_num)  # 키워드 추출
-    except:
+    except FileNotFoundError:
         keyword = "NULL"
     finally:
         return keyword
