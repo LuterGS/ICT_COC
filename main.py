@@ -2,15 +2,13 @@ from AI.summarize.summary import line3_summary
 from article.get_articles import get_articles
 from DB.main import query_mysql
 
-if __name__ == "__main__":
-    gwanark_article = get_articles("gwanak", 5)
-    summary3 = []
-    for test in gwanark_article:
-        summary3.append(line3_summary(test.content, sentence_tokenizer="jum"))
-    print("\n\n\n")
-    for i in range(5):
-        # print(gwanark_article[i].content)
-        print(summary3[i])
-        print("\n")
 
-        query_mysql(gwanark_article[i].number, gwanark_article[i].title, summary3[i], gwanark_article[i].date, gwanark_article[i].url)
+def get_onetool(location="gwanak", length=10, db_name="news_2", sentence_tokenizer="re", decay_factor=0.85, max_iteration_num=15):
+    articles = get_articles(location, length)
+    for article in articles:
+        article.content = line3_summary(article.content, sentence_tokenizer, decay_factor, max_iteration_num)
+        query_mysql(article.number, article.title, article.content, article.date, article.url, db_name)
+
+
+if __name__ == "__main__":
+    get_onetool()
