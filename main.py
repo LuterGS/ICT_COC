@@ -10,7 +10,7 @@ if __name__ == "__main__":
     print("\n\n\n")
     for i in range(5):
         # print(gwanark_article[i].content)
-        print(summary3[i])
+        #print(summary3[i])
         print("\n")
 
         query_mysql(gwanark_article[i].number, gwanark_article[i].title, summary3[i], gwanark_article[i].date, gwanark_article[i].url)
