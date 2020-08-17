@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from article.Article import Article
+import re
 
 
 def clean_xml(gu, article_count):
@@ -8,8 +9,6 @@ def clean_xml(gu, article_count):
         gu_tag = "DobongNewsNoticeList"
     elif gu == "seocho":
         gu_tag = "SeochoNewsNoticeList"
-    elif gu == "nowon":
-        gu_tag = "NowonNewsNoticeList"
     url = "http://openapi.seoul.go.kr:8088/766248667572616d373354516d6b42/xml/{}/1/{}/".format(gu_tag, article_count)
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'xml')
@@ -19,34 +18,33 @@ def clean_xml(gu, article_count):
     return rows
 
 
-def clean_ptags(ptags):
-    result = ""
-    for ptag in ptags:
-        text = ptag.get_text(strip=True)
-        text = text.replace(u'\xa0', u' ')
-        if len(text):
-            result = result + text + " "
-    return result
+def change_url(gu, url):
+    if gu == "dobong":
+        num1 = url[40:48]
+        num2 = url[49:]
+        new_url = "http://www.dobong.go.kr/bbs.asp?bmode=D&pcode={}&code={}".format(num1, num2)
+        return new_url
+    elif gu == "seocho":
+        num = url[60:]
+        new_url = "https://www.seocho.go.kr/site/seocho/ex/bbs/View.do?cbIdx=57&bcIdx={}".format(num)
+        return new_url
+    return url
 
 
-def get_dsn(gu, article_count):
+def get_ds(gu, article_count):
     articles = []
     rows = clean_xml(gu, article_count)
     for row in rows:
         number = row.ID.get_text(strip=True)
         title = row.TITLE.get_text(strip=True)
-        if gu == "nowon":
-            ptags = row.DESCRIPTION.find_all("p")
-            content = clean_ptags(ptags)
-        else:
-            content = row.DESCRIPTION.get_text(strip=True)
+        content = row.DESCRIPTION.get_text(strip=True)
+        content = content.replace('lt', '')
+        content = content.replace('gt', '')
         date = row.PUBDATE.get_text(strip=True)
-        url = row.LINK.get_text(strip=True)
+        url_origin = row.LINK.get_text(strip=True)
+        url = change_url(gu, url_origin)
+        change_url(gu, url)
         tmp_article = Article(number, title, content, date, url)
-        '''if tmp_article.is_duplicate("http://175.193.68.230/sendData"):
-                    print(tmp_article.number + " is duplicate")
-                else:
-                    articles.append(tmp_article)'''
         articles.append(tmp_article)
     return articles
 
@@ -56,6 +54,6 @@ if __name__ == "__main__":
     #xmls = clean_xml("nowon", 5)
     #print(xmls)
 
-    dobong_articles = get_dsn("nowon", 5)
+    dobong_articles = get_ds("seocho", 5)
     for dobong_article in dobong_articles:
         dobong_article.print_article()

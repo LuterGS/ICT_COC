@@ -38,14 +38,12 @@ def get_gwanak(article_count):
         title = row.title.get_text(strip=True)
         ptags = row.content.find_all("p")
         content = clean_ptags(ptags)
+        content = content.replace('lt', '')
+        content = content.replace('gt', '')
         origin_date = row.writeday.get_text(strip=True)
         date = format_time(origin_date)
         url = row.expanded_url.get_text(strip=True)
         tmp_article = Article(number, title, content, date, url)
-        '''if tmp_article.is_duplicate("http://175.193.68.230/sendData"):
-            print(tmp_article.number + " is duplicate")
-        else:
-            articles.append(tmp_article)'''
         articles.append(tmp_article)
     return articles  # Article 객체들을 담는 리스트
 
