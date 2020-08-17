@@ -25,6 +25,10 @@ def clean_ptags(ptags):
     return result
 
 
+def format_time(time):
+    return time[0:4] + "-" + time[4:6] + "-" + time[6:8] + " " + time[8:10] + ":" + time[10:12] + ":" + time[12:14]
+
+
 # xml을 parsing하여 게시글마다 Article 객체 생성 후 객체들을 리스트에 담아 반환
 def get_gwanak(article_count):
     articles = []
@@ -34,7 +38,8 @@ def get_gwanak(article_count):
         title = row.title.get_text(strip=True)
         ptags = row.content.find_all("p")
         content = clean_ptags(ptags)
-        date = row.writeday.get_text(strip=True)
+        origin_date = row.writeday.get_text(strip=True)
+        date = format_time(origin_date)
         url = row.expanded_url.get_text(strip=True)
         tmp_article = Article(number, title, content, date, url)
         '''if tmp_article.is_duplicate("http://175.193.68.230/sendData"):

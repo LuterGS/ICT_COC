@@ -6,7 +6,7 @@ class Article:
     def __init__(self, number, title, content, date, url):
         self.number = number  # 글 번호 String
         self.title = title  # 게시 제목 String
-        self.content = content  # 글 내용 String List
+        self.content = content  # 글 내용 String
         self.date = date  # 게시 날짜 String
         self.url = url  # 게시글 링크 String
     
