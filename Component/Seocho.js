@@ -5,6 +5,8 @@ import axios from 'axios';
 import Icon from 'react-native-vector-icons/Octicons';
 
 class Header extends React.Component{
+    
+
     render(){
         
         return(
@@ -36,7 +38,11 @@ class List extends React.Component{
                     <View style = {{flex: 10}}>
                         <View style = {styles.Title}><Text style = {{fontWeight :'bold', fontSize : 17}}>○ {this.props.title}</Text></View>
                         <View style = {styles.Article}><Text style = {{fontSize : 15}}>{content}</Text></View>
-                        <View style = {styles.Link}><Text  style = {{fontSize : 14}}onPress={() =>Linking.openURL(this.props.url)}>원문 보기</Text></View>
+                        <View style = {styles.Link}>
+                            
+                            <View style = {{flex : 4,alignItems : 'flex-start' ,justifyContent : 'center'}}><Text style = {{textDecorationLine: 'underline',color : 'blue', paddingLeft : 10,fontSize  : 17}}>{this.props.hash}</Text></View>
+                            <Text  style = {{flex : 1,fontSize : 14, alignItems : 'flex-end'}}onPress={() =>Linking.openURL(this.props.url)}>원문 보기</Text>
+                        </View>
                     </View>
                 </View>
             
@@ -87,6 +93,20 @@ export default class News extends React.Component{
             content9 : '',
             content10 : '',
 
+
+        },
+
+        hash :{
+            hash1 : '',
+            hash2 : '',
+            hash3 : '',
+            hash4 : '',
+            hash5 : '',
+            hash6 : '',
+            hash7 : '',
+            hash8 : '',
+            hash9 : '',
+            hash10 : '',
 
         },
         refreshing : false,
@@ -156,6 +176,21 @@ export default class News extends React.Component{
             
                     },
 
+                    hash : {
+
+                        hash1 : response.data[0].hash,
+                        hash2 : response.data[1].hash,
+                        hash3 : response.data[2].hash,
+                        hash4 : response.data[3].hash,
+                        hash5 : response.data[4].hash,
+                        hash6 : response.data[5].hash,
+                        hash7 : response.data[6].hash,
+                        hash8 : response.data[7].hash,
+                        hash9 : response.data[8].hash,
+                        hash10 : response.data[9].hash,
+                       
+                    }
+
 
                 });
             }
@@ -182,16 +217,16 @@ export default class News extends React.Component{
                 }
                 >
                     <View style = {{backgroundColor:'#f0f0f0'}}>
-                        <List title = {this.state.title.title1} url = {this.state.url.url1} content = {this.state.content.content1}></List>
-                        <List title = {this.state.title.title2} url = {this.state.url.url2} content = {this.state.content.content2}></List>
-                        <List title = {this.state.title.title3} url = {this.state.url.url3} content = {this.state.content.content3}></List>
-                        <List title = {this.state.title.title4} url = {this.state.url.url4} content = {this.state.content.content4}></List>
-                        <List title = {this.state.title.title5} url = {this.state.url.url5} content = {this.state.content.content5}></List>
-                        <List title = {this.state.title.title6} url = {this.state.url.url6} content = {this.state.content.content6}></List>
-                        <List title = {this.state.title.title7} url = {this.state.url.url7} content = {this.state.content.content7}></List>
-                        <List title = {this.state.title.title8} url = {this.state.url.url8} content = {this.state.content.content8}></List>
-                        <List title = {this.state.title.title9} url = {this.state.url.url9} content = {this.state.content.content9}></List>
-                        <List title = {this.state.title.title10} url = {this.state.url.url10} content = {this.state.content.content10}></List>
+                        <List title = {this.state.title.title1} url = {this.state.url.url1} content = {this.state.content.content1} hash = {this.state.hash.hash1}></List>
+                        <List title = {this.state.title.title2} url = {this.state.url.url2} content = {this.state.content.content2} hash = {this.state.hash.hash2}></List>
+                        <List title = {this.state.title.title3} url = {this.state.url.url3} content = {this.state.content.content3} hash = {this.state.hash.hash3}></List>
+                        <List title = {this.state.title.title4} url = {this.state.url.url4} content = {this.state.content.content4} hash = {this.state.hash.hash4}></List>
+                        <List title = {this.state.title.title5} url = {this.state.url.url5} content = {this.state.content.content5} hash = {this.state.hash.hash5}></List>
+                        <List title = {this.state.title.title6} url = {this.state.url.url6} content = {this.state.content.content6} hash = {this.state.hash.hash6}></List>
+                        <List title = {this.state.title.title7} url = {this.state.url.url7} content = {this.state.content.content7} hash = {this.state.hash.hash7}></List>
+                        <List title = {this.state.title.title8} url = {this.state.url.url8} content = {this.state.content.content8} hash = {this.state.hash.hash8}></List>
+                        <List title = {this.state.title.title9} url = {this.state.url.url9} content = {this.state.content.content9} hash = {this.state.hash.hash9}></List>
+                        <List title = {this.state.title.title10} url = {this.state.url.url10} content = {this.state.content.content10} hash = {this.state.hash.hash10}></List>
                     </View>
                 </ScrollView>
             </View>
@@ -234,7 +269,7 @@ const styles = StyleSheet.create({
 
     Link : {
         flex:1,
-        alignItems:'flex-end',
+        flexDirection : 'row',
         paddingRight : 5,
         paddingBottom : 5
     }
