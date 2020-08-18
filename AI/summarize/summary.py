@@ -78,6 +78,7 @@ def __get_limited_length_sentence(sentences, max_length):
     sentences_result = []
     for sentence in sentences:
         if len(sentence) < max_length:
+            sentence = sentence.replace('"', '\"').replace("'", "\'")
             sentences_result.append(sentence)
     return sentences_result
 
