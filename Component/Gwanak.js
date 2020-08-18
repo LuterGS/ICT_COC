@@ -40,7 +40,7 @@ class List extends React.Component{
                         <View style = {styles.Article}><Text style = {{fontSize : 15}}>{content}</Text></View>
                         <View style = {styles.Link}>
                             
-                            <View style = {{flex : 4,alignItems : 'flex-start',justifyContent : 'center'}}><Text style = {{textDecorationLine: 'underline',color : 'blue', paddingLeft : 10,fontSize  : 17}}>{this.props.hash}</Text></View>
+                            <View style = {{flex : 4,alignItems : 'flex-start',justifyContent : 'center'}}><Text style = {{color : 'blue', paddingLeft : 10,fontSize  : 17}}>{this.props.hash}</Text></View>
                             <Text  style = {{flex : 1,fontSize : 14, alignItems : 'flex-end'}}onPress={() =>Linking.openURL(this.props.url)}>원문 보기</Text>
                         </View>
                     </View>
