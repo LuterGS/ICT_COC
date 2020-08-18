@@ -35,11 +35,9 @@ def get_gwanak(article_count):
     rows = clean_xml(article_count)
     for row in rows:
         number = row.seq.get_text(strip=True)
-        title = row.title.get_text(strip=True)
+        title = row.title.get_text(strip=True).replace("'", "\'").replace('"', '\"')
         ptags = row.content.find_all("p")
-        content = clean_ptags(ptags)
-        content = content.replace('lt', '')
-        content = content.replace('gt', '')
+        content = clean_ptags(ptags).replace("'", "\'").replace('"', '\"').replace('lt', '').replace('gt', '')
         origin_date = row.writeday.get_text(strip=True)
         date = format_time(origin_date)
         url = row.expanded_url.get_text(strip=True).replace(";", "")
