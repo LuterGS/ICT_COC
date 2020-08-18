@@ -37,9 +37,13 @@ def get_ds(gu, article_count):
     for row in rows:
         number = row.ID.get_text(strip=True)
         title = row.TITLE.get_text(strip=True)
+        title = title.replace("'", "''")
+        title = title.replace('"', '\"')
         content = row.DESCRIPTION.get_text(strip=True)
         content = content.replace('lt', '')
         content = content.replace('gt', '')
+        content = content.replace("'", "''")
+        content = content.replace('"', '\"')
         date = row.PUBDATE.get_text(strip=True)
         url_origin = row.LINK.get_text(strip=True)
         url = change_url(gu, url_origin)
