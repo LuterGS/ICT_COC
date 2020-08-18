@@ -42,7 +42,7 @@ def get_gwanak(article_count):
         content = content.replace('gt', '')
         origin_date = row.writeday.get_text(strip=True)
         date = format_time(origin_date)
-        url = row.expanded_url.get_text(strip=True)
+        url = row.expanded_url.get_text(strip=True).replace(";", "")
         tmp_article = Article(number, title, content, date, url)
         articles.append(tmp_article)
     return articles  # Article 객체들을 담는 리스트
