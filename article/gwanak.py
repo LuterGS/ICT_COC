@@ -22,6 +22,7 @@ def clean_ptags(ptags):
         text = text.replace(u'\xa0', u' ')
         if len(text):
             result = result + text + " "
+    print(result)
     return result
 
 

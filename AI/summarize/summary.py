@@ -41,12 +41,12 @@ def __get_splited_sentence(whole_text, sentence_tokenizer="re"):
         return splited, splited_num
 
     # 문자열에 특수기호가 있을 경우
-    special_character = ['○','□', '▣', '※', '①', '②', '③', '◇']
+    special_character = ['○','□', '▣', '※', '①', '②', '③', '◇', '●', '★', '-']
     special_counter = 0
     for special in special_character:
         special_counter += whole_text.count(special)
     if special_counter > 0:
-        special_splited = re.split("[○□▣※◇①②③]", whole_text.replace("\n", "")[:-1])
+        special_splited = re.split("[○●□▣※◇①②③★-]", whole_text.replace("\n", "")[:-1])
         splited = []
         for sentence in special_splited:
             sentence = kss.split_sentences(sentence)
@@ -66,18 +66,33 @@ def __get_splited_sentence(whole_text, sentence_tokenizer="re"):
         splited = whole_text.split("\n")
     elif sentence_tokenizer == "jum":
         splited = whole_text.split(".")
+    elif sentence_tokenizer == "kss + re":
+        kss_splited = kss.split_sentences(whole_text.replace("\n", ""))
+        splited = []
+        for sentence in kss_splited:
+            print("kss1: ", sentence)
+            re_splited_sentences = re.split("[.!?]", sentence.replace("\n", "")[:-1])
+            if type(re_splited_sentences) == list and len(re_splited_sentences) > 1:
+                print("if: ", re_splited_sentences)
+                for re_splited_sentence in re_splited_sentences:
+                    splited.append(re_splited_sentence)
+            else:
+                print("else: ", sentence)
+                splited.append(sentence)
+        print("rekss : ", splited)
 
-    splited = __get_limited_length_sentence(splited, 600)
-    keyword_splited = [normalize(sentence, english=True, number=True) for sentence in splited]
+
+    splited = __get_limited_length_sentence(splited, 5, 600)
+    keyword_splited = [normalize(sentence, english=True, number=False) for sentence in splited]
     print(len(splited), splited)
     splited_num = len(splited)
 
     return splited, keyword_splited, splited_num
 
-def __get_limited_length_sentence(sentences, max_length):
+def __get_limited_length_sentence(sentences, min_length, max_length):
     sentences_result = []
     for sentence in sentences:
-        if len(sentence) < max_length:
+        if min_length < len(sentence) < max_length:
             sentences_result.append(sentence)
     return sentences_result
 
