@@ -41,7 +41,8 @@ class List extends React.Component{
                         <View style = {styles.Link}>
                             
                             <View style = {{flex : 4,alignItems : 'flex-start',justifyContent : 'center'}}><Text style = {{color : 'blue', paddingLeft : 10,fontSize  : 17}}>{this.props.hash}</Text></View>
-                            <Text  style = {{flex : 1,fontSize : 14, alignItems : 'flex-end'}}onPress={() =>Linking.openURL(this.props.url)}>원문 보기</Text>
+                            <View style = {{flex : 1, alignItems : 'flex-end', justifyContent : 'center'}}><Text  style = {{fontSize : 15}}onPress={() =>Linking.openURL(this.props.url)}>원문 보기</Text></View>
+
                         </View>
                     </View>
                 </View>
