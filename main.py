@@ -7,6 +7,7 @@ def get_onetool(location="nowon", length=10, db_name="news_2", sentence_tokenize
     articles = get_articles(location, length)
     for article in articles:
         article.content = line3_summary(article.content, sentence_tokenizer, decay_factor, max_iteration_num)
+        print(article.url)
         print(article.content)
         query_mysql(db_name, article.number, article.title, article.content, article.date, article.url)
 
@@ -14,7 +15,7 @@ def get_onetool(location="nowon", length=10, db_name="news_2", sentence_tokenize
 if __name__ == "__main__":
 
     while True:
-        get_onetool("gwanak", 10, "news_1")
-        get_onetool("dobong", 10, "news_2")
-        get_onetool("seocho", 10, "news_3")
+        get_onetool("gwanak", 15, "news_1")
+        get_onetool("dobong", 15, "news_2")
+        get_onetool("seocho", 15, "news_3")
         time.sleep(3600)
