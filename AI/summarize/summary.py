@@ -7,19 +7,29 @@ import re
 def line3_summary(text, sentence_tokenizer="re", decay_factor=0.85, max_iteration_num=15):
     original_splited, splited_sentence, splited_sentence_num = __get_splited_sentence(text, sentence_tokenizer)
     keyword = __get_keyword(splited_sentence, decay_factor, max_iteration_num)
+
+    if type(keyword) == dict and len(keyword) > 0:
+        keyword_list = list(keyword.items())
+        if len(keyword_list) > 2:
+            keyword_string = "#" + keyword_list[0][0] + " #" + keyword_list[1][0] + " #" + keyword_list[2][0]
+        else:
+            keyword_string = ""
+            for i in range(len(keyword_list)):
+                keyword_string += "#" + keyword_list[i][0] + " "
+
     if keyword == "NULL" or len(keyword) == 0:
         print("문장 요약 실패")
         final_result = ""
         for text in original_splited:
             final_result += text + "\n"
-        return final_result
+        return final_result, ""
     print(keyword)
     result_sentence_num = __get_score(splited_sentence, splited_sentence_num, keyword)
     final_result = ""
     for i in range(len(result_sentence_num)):
         final_result += original_splited[i] + "\n"
 
-    return final_result
+    return final_result, keyword_string
 
 
 def __get_splited_sentence(whole_text, sentence_tokenizer="re"):
