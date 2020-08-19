@@ -1,0 +1,5 @@
+applications:
+-   name: kakaochatbot
+    random-route: true
+    memory: 128M
+    command: node app.js
