@@ -5,12 +5,12 @@ const axios = require('axios');
 var app = express();
 app.use(express.json());
 
-
 const port = 8080;
 
 var allow = ['관악구', '도봉구', '서초구']
 var data = [];
 var index = 1;
+var selected_city = '';
 
 
 function getData(input_city, res){
@@ -18,17 +18,27 @@ function getData(input_city, res){
     city: input_city
   })
   .then(function (response) {
+    selected_city = input_city;
     data = response.data;
     index = 1;
     res.send({
       version: "2.0",
       template: {
         outputs: [
-          {
-            simpleText: {
-              text: "[" + input_city + " 새소식]\n" + '제목 : ' + data[0].title + '\n내용 : ' + data[0].content
+            {
+              "basicCard": {
+                "title": "[" + input_city + "] " + data[0].title,
+                "description": data[0].content,
+                "buttons": [
+                  {
+                    "action":  "webLink",
+                    "label": "원본 링크",
+                    "webLinkUrl": data[0].url
+                  }
+                ]
+              }
             }
-          }
+          
         ]
       }
     });
@@ -44,6 +54,7 @@ app.post("/news", function(req, res) {
     getData(city, res);
   }
   else{
+    selected_city = '';
     res.send({
       version: "2.0",
       template: {
@@ -61,8 +72,8 @@ app.post("/news", function(req, res) {
 });
 
 app.post("/more", function(req, res){
-  let max = data.length;
-  if(max !== 0){
+  if(selected_city !== ''){
+    let max = data.length;
     if(index+2 < max){
       res.send({
         version: "2.0",
@@ -71,7 +82,7 @@ app.post("/more", function(req, res){
             {
               listCard: {
                 header: {
-                  title: "새소식 더보기"
+                  title: selected_city + " 새소식 더보기"
                 },
                 items: [
                   {
