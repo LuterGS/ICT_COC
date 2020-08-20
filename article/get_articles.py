@@ -3,14 +3,14 @@ from article.gwanak import get_gwanak
 
 
 def get_articles(gu, article_count):
-    gu_names = ["gwanak", "dobong", "seocho", "nowon"]
+    gu_names = ["gwanak", "dobong", "seocho"]
 
     if gu == gu_names[0]:
         return get_gwanak(article_count)
     elif gu in gu_names:
         return get_ds(gu, article_count)
     else:
-        print("\"gwanak\" \"dobong\" \"seocho\" \"nowon\" 중 하나를 함수의 인자로 주세요")
+        print("\"gwanak\" \"dobong\" \"seocho\" 중 하나를 함수의 인자로 주세요")
 
 
 if __name__ == "__main__":
