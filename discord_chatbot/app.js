@@ -5,7 +5,8 @@ const axios = require('axios');
 real_token = ' ';
 test_token = ' ';
 
-allow = ['서울시', '관악구', '도봉구', '서초구'];
+allow = ['관악구', '도봉구', '서초구'];
+help_str = ['/help', '도움말', '사용법'];
 data = [];
 select = '';
 index = 0;
@@ -48,7 +49,7 @@ client.on('ready', () => {
 
 client.on('message', msg => {
   if (msg.content === '서울시 새소식 봇 정보') {
-    msg.reply('ICT COC AI 공모전 - 세줄요약장인 팀 \n방준식 : 챗봇 제작 \n이관석 : 한글 요약 알고리즘 \n이호현 : APP & Server \n윤동근 : API로 받은 정보 처리');
+    msg.reply('ICT COC AI 공모전 - 세줄요약장인 팀 \n방준식 : Chat Bot (KakaoTalk & Discord) \n이관석 : AI \n이호현 : APP \n윤동근 : DB');
   }
 
   if (msg.content.slice(0, 2) === '알림') {
@@ -103,6 +104,10 @@ client.on('message', msg => {
       else{
         msg.reply('지역을 먼저 선택해주세요.');
       }
+  }
+
+  if(help_str.indexOf(msg.content) > 0){
+    msg.reply('[챗봇 사용법]\n1. "00구 새소식" 명령으로 해당 구의 새 소식을 확안할 수 있습니다.\n2. "더보기" 명령으로 새 소식을 3개씩 더 볼 수 있습니다.\n3. "알림 켜/꺼" 명령으로 알림을 켜고 끌 수 있습니다. 또한 "알림 지역 00구" 명령으로 알림 설정된 지역 변경이 가능합니다.')
   }
 
 });
