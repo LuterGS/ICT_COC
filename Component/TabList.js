@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Linking, RefreshControl ,ScrollView, Button} from 'react-native';
+import { StyleSheet, Text, View} from 'react-native';
 import Icon from 'react-native-vector-icons/Octicons';
 class Header extends React.Component{
     render(){
@@ -35,23 +35,27 @@ class Body extends React.Component{
         return(
             <View style= {styles.body}>
                 
+
+
                 <Text 
                 style = {styles.list}
-                onPress={() => this.props.navigation.navigate("Gwanak")}
+                onPress={() => this.props.navigation.navigate("Gwanak",{city : '관악구'})}
                 >관악구
                 </Text>
-                
+
                 <Text 
                 style = {styles.list}
-                onPress={() => this.props.navigation.navigate("Dobong")}
+                onPress={() => this.props.navigation.navigate("Dobong",{city : '도봉구'})}
                 >도봉구
                 </Text>
 
                 <Text 
                 style = {styles.list}
-                onPress={() => this.props.navigation.navigate("Seocho")}
+                onPress={() => this.props.navigation.navigate("Seocho",{city : '서초구'})}
                 >서초구
                 </Text>
+
+
 
             </View>
         )
