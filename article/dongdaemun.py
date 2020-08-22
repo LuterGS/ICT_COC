@@ -25,7 +25,6 @@ def get_ddm(article_count):
         date = row.pubdate.get_text(strip=True)
         url_origin = row.linkurl.get_text(strip=True)
         url = change_url(url_origin)
-        change_url(url)
         tmp_article = Article(number, title, content, date, url)
         articles.append(tmp_article)
     return articles

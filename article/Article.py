@@ -41,11 +41,11 @@ def clean_ptags(ptags):
     return result
 
 
-def clean_xml(url):
+def clean_xml(url, parse='html.parser'):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'xml')
     pretty_xml = soup.prettify(formatter=None)
-    pretty_soup = BeautifulSoup(pretty_xml, 'html.parser')
+    pretty_soup = BeautifulSoup(pretty_xml, parse)
     rows = pretty_soup.find_all("row")
     return rows
 
