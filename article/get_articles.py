@@ -1,25 +1,30 @@
 from article.dobong_seocho import get_ds
 from article.gwanak import get_gwanak
+from article.dongdaemun import get_ddm
+from article.dongjak import get_dongjak
+from article.gangdong import get_gangdong
+from article.seodaemun import get_seodaemun
+from article.songpa import get_songpa
+from article.yangchun import get_yangchun
 
 
 def get_articles(gu, article_count):
-    gu_names = ["gwanak", "dobong", "seocho"]
-
-    if gu == gu_names[0]:
-        return get_gwanak(article_count)
-    elif gu in gu_names:
+    gus = {'dongdaemun': get_ddm, 'dongjak': get_dongjak, 'gangdong': get_gangdong, 'gwanak': get_gwanak,
+           'seodaemun': get_seodaemun, 'songpa': get_songpa, 'yangchun': get_yangchun}
+    if gu in gus.keys():
+        return gus[gu](article_count)
+    elif gu == 'dobong' or gu == 'seocho':
         return get_ds(gu, article_count)
     else:
-        print("\"gwanak\" \"dobong\" \"seocho\" 중 하나를 함수의 인자로 주세요")
+        print("올바른 구 이름을 입력하세요")
+        exit()
 
 
 if __name__ == "__main__":
-    gwanaks = get_articles("gwanak", 5)
-    for article in gwanaks:
-        article.print_article()
-    dobongs = get_articles("dobong", 5)
-    for article in dobongs:
-        article.print_article()
-    seochos = get_articles("seocho", 5)
-    for article in seochos:
-        article.print_article()
+    gus = ['gwanak', 'dobong', 'seocho', 'dongdaemun', 'dongjak', 'gangdong', 'seodaemun', 'songpa', 'yangchun']
+    for gu in gus:
+        print('*********************'+gu+'******************************')
+        articles = get_articles(gu, 3)
+        for article in articles:
+            article.print_article()
+

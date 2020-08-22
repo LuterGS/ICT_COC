@@ -1,5 +1,6 @@
 import requests
 import json
+from bs4 import BeautifulSoup
 
 
 class Article:
@@ -27,3 +28,31 @@ class Article:
         print("content: ", self.content)
         print("date: ", self.date)
         print("url: ", self.url)
+
+
+# xml <p> 태그 정리
+def clean_ptags(ptags):
+    result = ""
+    for ptag in ptags:
+        text = ptag.get_text(strip=True)
+        text = text.replace(u'\xa0', u' ')
+        if len(text):
+            result = result + text + " "
+    return result
+
+
+def clean_xml(url):
+    response = requests.get(url)
+    soup = BeautifulSoup(response.text, 'xml')
+    pretty_xml = soup.prettify(formatter=None)
+    pretty_soup = BeautifulSoup(pretty_xml, 'html.parser')
+    rows = pretty_soup.find_all("row")
+    return rows
+
+
+def clean_string(string):
+    string = string.replace("'", "''")
+    string = string.replace('"', '\"')
+    string = string.replace('lt', '')
+    string = string.replace('gt', '')
+    return string

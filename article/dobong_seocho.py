@@ -1,21 +1,13 @@
-import requests
-from bs4 import BeautifulSoup
-from article.Article import Article
-import re
+from article.Article import Article, clean_xml, clean_string
 
 
-def clean_xml(gu, article_count):
+def get_data(gu, article_count):
     if gu == "dobong":
         gu_tag = "DobongNewsNoticeList"
     elif gu == "seocho":
         gu_tag = "SeochoNewsNoticeList"
     url = "http://openapi.seoul.go.kr:8088/766248667572616d373354516d6b42/xml/{}/1/{}/".format(gu_tag, article_count)
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'xml')
-    pretty_xml = soup.prettify(formatter=None)
-    pretty_soup = BeautifulSoup(pretty_xml, 'xml')
-    rows = pretty_soup.find_all("row")
-    return rows
+    return clean_xml(url)
 
 
 def change_url(gu, url):
@@ -33,31 +25,22 @@ def change_url(gu, url):
 
 def get_ds(gu, article_count):
     articles = []
-    rows = clean_xml(gu, article_count)
+    rows = get_data(gu, article_count)
     for row in rows:
-        number = row.ID.get_text(strip=True)
-        title = row.TITLE.get_text(strip=True)
-        title = title.replace("'", "''")
-        title = title.replace('"', '\"')
-        content = row.DESCRIPTION.get_text(strip=True)
-        content = content.replace('lt', '')
-        content = content.replace('gt', '')
-        content = content.replace("'", "''")
-        content = content.replace('"', '\"')
-        date = row.PUBDATE.get_text(strip=True)
-        url_origin = row.LINK.get_text(strip=True)
+        number = row.id.get_text(strip=True)
+        title = row.title.get_text(strip=True)
+        title = clean_string(title)
+        content = row.description.get_text(strip=True)
+        content = clean_string(content)
+        date = row.pubdate.get_text(strip=True)
+        url_origin = row.link.get_text(strip=True)
         url = change_url(gu, url_origin)
-        change_url(gu, url)
         tmp_article = Article(number, title, content, date, url)
         articles.append(tmp_article)
     return articles
 
 
 if __name__ == "__main__":
-
-    #xmls = clean_xml("nowon", 5)
-    #print(xmls)
-
-    dobong_articles = get_ds("seocho", 5)
-    for dobong_article in dobong_articles:
-        dobong_article.print_article()
+    dss = get_ds("dobong", 5)
+    for ds in dss:
+        ds.print_article()
