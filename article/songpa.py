@@ -16,7 +16,10 @@ def get_songpa(article_count):
         content = row.content.find_all("p")
         content = clean_ptags(content)
         content = clean_string(content)
-        date = row.reg_date.get_text(strip=True)
+        try:
+            date = row.reg_date.get_text(strip=True) #송파구 날짜 이상함
+        except AttributeError:
+            date = "NULL"
         url = "http://www.songpa.go.kr/user.kdf?a=songpa.openadmin.news.NewsApp&c=1001&code=1&cate_id=AG0401000000"
         tmp_article = Article(number, title, content, date[0:10], url)
         articles.append(tmp_article)

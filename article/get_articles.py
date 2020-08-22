@@ -24,7 +24,7 @@ if __name__ == "__main__":
     gus = ['gwanak', 'dobong', 'seocho', 'dongdaemun', 'dongjak', 'gangdong', 'seodaemun', 'songpa', 'yangchun']
     for gu in gus:
         print('*********************'+gu+'******************************')
-        articles = get_articles(gu, 3)
+        articles = get_articles(gu, 10)
         for article in articles:
             article.print_article()
 
