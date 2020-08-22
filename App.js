@@ -25,6 +25,24 @@ class Navi extends React.Component{
                 <Stack.Screen name = "Seocho"             
                 component = {News}
                  />
+                 <Stack.Screen name = "Dongdaemun"             
+                component = {News}
+                 />
+                <Stack.Screen name = "Seodaemun"             
+                component = {News}
+                 />
+                <Stack.Screen name = "Songpa"             
+                component = {News}
+                 />
+                 <Stack.Screen name = "Yangchun"             
+                component = {News}
+                 />
+                <Stack.Screen name = "Dongjak"             
+                component = {News}
+                 />
+                <Stack.Screen name = "Gangdong"             
+                component = {News}
+                 />
             </Stack.Navigator>
       </NavigationContainer>
     )

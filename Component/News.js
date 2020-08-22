@@ -115,6 +115,7 @@ export default class News extends React.Component{
     
     getArticle = () =>{
 
+        
        if(this.props.route.params){
             var options = {
                 url : 'http://175.193.68.230/sendData',
@@ -122,7 +123,8 @@ export default class News extends React.Component{
                 data : {'city' : this.props.route.params.city}
             };
        }
-            
+          
+
        else{
             var options = {
                 url : 'http://175.193.68.230/sendData',

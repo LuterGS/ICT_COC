@@ -34,29 +34,51 @@ class Body extends React.Component{
     render(){
         return(
             <View style= {styles.body}>
-                
-
-
                 <Text 
                 style = {styles.list}
                 onPress={() => this.props.navigation.navigate("Gwanak",{city : '관악구'})}
                 >관악구
                 </Text>
-
                 <Text 
                 style = {styles.list}
                 onPress={() => this.props.navigation.navigate("Dobong",{city : '도봉구'})}
                 >도봉구
                 </Text>
-
                 <Text 
                 style = {styles.list}
                 onPress={() => this.props.navigation.navigate("Seocho",{city : '서초구'})}
                 >서초구
                 </Text>
-
-
-
+                <Text 
+                style = {styles.list}
+                onPress={() => this.props.navigation.navigate("Dongdaemun",{city : '동대문구'})}
+                >동대문구
+                </Text>
+                <Text 
+                style = {styles.list}
+                onPress={() => this.props.navigation.navigate("Seodaemun",{city : '서대문구'})}
+                >서대문구
+                </Text>
+                <Text 
+                style = {styles.list}
+                onPress={() => this.props.navigation.navigate("Songpa",{city : '송파구'})}
+                >송파구
+                </Text>
+                <Text 
+                style = {styles.list}
+                onPress={() => this.props.navigation.navigate("Yangchun",{city : '양천구'})}
+                >양천구
+                </Text>
+                <Text 
+                style = {styles.list}
+                onPress={() => this.props.navigation.navigate("Dongjak",{city : '동작구'})}
+                >동작구
+                </Text>
+                <Text 
+                style = {styles.list}
+                onPress={() => this.props.navigation.navigate("Gangdong",{city : '강동구'})}
+                >강동구
+                </Text>
             </View>
         )
     }
@@ -71,7 +93,6 @@ export default class TabList extends React.Component{
         )
     }
 }
-
 const styles = StyleSheet.create({
 
     header : {
