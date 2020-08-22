@@ -7,53 +7,53 @@ app.use(express.json());
 
 const port = 8080;
 
-var allow = ['관악구', '도봉구', '서초구']
+var allow = ['관악구', '강동구', '동대문구', '도봉구', '동작구', '서대문구', '서초구', '송파구', '양천구']
 var data = [];
 var index = 1;
 var selected_city = '';
 
 
-function getData(input_city, res){
+function getData(input_city, res) {
   axios.post('http://175.193.68.230/sendData', {
     city: input_city
   })
-  .then(function (response) {
-    selected_city = input_city;
-    data = response.data;
-    index = 1;
-    res.send({
-      version: "2.0",
-      template: {
-        outputs: [
+    .then(function (response) {
+      selected_city = input_city;
+      data = response.data;
+      index = 1;
+      res.send({
+        version: "2.0",
+        template: {
+          outputs: [
             {
               "basicCard": {
                 "title": "[" + input_city + "] " + data[0].title,
                 "description": data[0].content,
                 "buttons": [
                   {
-                    "action":  "webLink",
+                    "action": "webLink",
                     "label": "원본 링크",
                     "webLinkUrl": data[0].url
                   }
                 ]
               }
             }
-          
-        ]
-      }
+
+          ]
+        }
+      });
+    })
+    .catch(function (error) {
+      console.log(error);
     });
-  })
-  .catch(function (error) {
-    console.log(error);
-  });
 }
 
-app.post("/news", function(req, res) {
+app.post("/news", function (req, res) {
   var city = req.body.action.params.city;
-  if(allow.indexOf(city) !== -1){
+  if (allow.indexOf(city) !== -1) {
     getData(city, res);
   }
-  else{
+  else {
     selected_city = '';
     res.send({
       version: "2.0",
@@ -61,20 +61,20 @@ app.post("/news", function(req, res) {
         outputs: [
           {
             simpleText: {
-              text: city + "는 서비스 준비중인 지역입니다. \n현재 서비스 가능 지역은 관악구, 도봉구, 서초구 입니다."
+              text: city + "는 서비스 준비중인 지역입니다. \n현재 서비스 가능 지역은 '관악구', '강동구', '동대문구', '도봉구', '동작구', '서대문구', '서초구', '송파구', '양천구' 입니다."
             }
           }
         ]
       }
     });
   }
-    
+
 });
 
-app.post("/more", function(req, res){
-  if(selected_city !== ''){
+app.post("/more", function (req, res) {
+  if (selected_city !== '') {
     let max = data.length;
-    if(index+2 < max){
+    if (index + 2 < max) {
       res.send({
         version: "2.0",
         template: {
@@ -93,17 +93,17 @@ app.post("/more", function(req, res){
                     }
                   },
                   {
-                    title: data[index+1].title,
-                    description: data[index+1].content,
+                    title: data[index + 1].title,
+                    description: data[index + 1].content,
                     link: {
-                      web: data[index+1].url
+                      web: data[index + 1].url
                     }
                   },
                   {
-                    title: data[index+2].title,
-                    description: data[index+2].content,
+                    title: data[index + 2].title,
+                    description: data[index + 2].content,
                     link: {
-                      web: data[index+2].url
+                      web: data[index + 2].url
                     }
                   }
                 ]
@@ -114,7 +114,7 @@ app.post("/more", function(req, res){
       })
       index += 3;
     }
-    else{
+    else {
       res.send({
         version: "2.0",
         template: {
@@ -129,7 +129,7 @@ app.post("/more", function(req, res){
       });
     }
   }
-  else{
+  else {
     res.send({
       version: "2.0",
       template: {
@@ -143,11 +143,11 @@ app.post("/more", function(req, res){
       }
     });
   }
-  
+
 })
 
-app.listen(port, function() {
-	console.log("server start");
+app.listen(port, function () {
+  console.log("server start");
 });
 
 

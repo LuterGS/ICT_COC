@@ -2,10 +2,10 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const axios = require('axios');
 
-real_token = ' ';
-test_token = ' ';
+real_token = 'NzQzODQ5OTE5NzQzNTI0OTE2.XzaqOA.NAqJtTBAH7QGhLUD6XcCo-fAz1M';
+test_token = 'NzQ0MTAxMTM1NjEwMDE5OTIx.XzeULw.4j8Mz1z4Gin5SB-33CxyLTEvO68';
 
-allow = ['관악구', '도봉구', '서초구'];
+allow = ['관악구', '강동구', '동대문구', '도봉구', '동작구', '서대문구', '서초구', '송파구', '양천구'];
 help_str = ['/help', '도움말', '사용법'];
 data = [];
 select = '';
