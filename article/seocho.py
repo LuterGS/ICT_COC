@@ -6,8 +6,8 @@ def get_data(article_count):
     return clean_xml(url)
 
 
-def change_url(url):
-    num = url[60:]
+def change_url(id):
+    num = id[3:]
     new_url = "https://www.seocho.go.kr/site/seocho/ex/bbs/View.do?cbIdx=57&bcIdx={}".format(num)
     return new_url
 
@@ -23,7 +23,7 @@ def get_seocho(article_count):
         content = clean_string(content)
         date = row.pubdate.get_text(strip=True)
         url_origin = row.link.get_text(strip=True)
-        url = change_url(url_origin)
+        url = change_url(url_origin, number)
         tmp_article = Article(number, title, content, date, url)
         articles.append(tmp_article)
     return articles
@@ -31,6 +31,6 @@ def get_seocho(article_count):
 
 if __name__ == "__main__":
     #dss = get_ds("dobong", 5)
-    datas = get_data("dobong", 5)
+    datas = get_data(5)
     for ds in datas:
         print(ds)
