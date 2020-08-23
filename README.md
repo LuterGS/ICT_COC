@@ -2,9 +2,9 @@
 > ## Team 세줄요약장인
 > ### 방준식 : ChatBot (KakaoTalk & Discord)
 > ### 이관석 : AI
-> ### 이호현 : APP
-> ### 윤동근 : DB
-
+> ### 이호현 : APP, DB
+> ### 윤동근 : 데이터수집
+>
 ## ChatBot
  1. KakaoTalk Chatbot   
  Kakao i open builder 이용 자연어 처리 가능
@@ -52,7 +52,7 @@
      
      
      
-## Node.js(wiht MariaDB)
+## Node.js(with MariaDB)
 
 1.1 개요
 
@@ -66,3 +66,28 @@
    App 에 전송한다.
    
  * App 과의 통신에서 받은 구 이름으로 특정 구에 대한 정보만 App에게 전송한다.
+
+
+## 데이터 수집(ICT_COC/AI/article)
+
+1.1 개요
+
+ * Python(Requests, Beautifulsoup)을 이용해 구별 공지사항 데이터 수집, xml parsing, 및 정리
+ 
+ * 주기적으로 공지사항 데이터가 업데이트 되는 9개 구 지원
+ 
+ 1.2 기능
+ 
+ * 서울시공공데이터포털 Open API로부터 데이터 획득 및 필요 데이터 추출
+ 
+ * 데이터의 DB 저장을 위해 구별로 데이터 형태 통일
+   
+ * 데이터에 포함된 불필요한 문자열 정리 및 잘못된 데이터 수정
+ 
+ * 함수 하나로 손쉽게 원하는 구의 데이터를 불러올 수 있도록 코드 작성
+ 
+ 1.3 예시 코드
+ ```python
+from AI.article.get_articles import get_articles
+gwanak_articles = get_articles("gwanak", 5) #관악구의 최신 글 5개를 통일 된 형식으로 반환
+```
