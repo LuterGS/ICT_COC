@@ -1,0 +1,10 @@
+/venv/
+.idea/
+article/__pycache__
+/AI/venv
+/AI/model/*
+/AI/model/ko.zip
+/AI/.idea
+/AI/summarize/__pycache__
+
+# 각자 깃에 제외할 경로 적어놓을것
