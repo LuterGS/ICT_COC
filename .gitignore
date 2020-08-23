@@ -6,5 +6,7 @@ article/__pycache__
 /AI/model/ko.zip
 /AI/.idea
 /AI/summarize/__pycache__
+/discord_chatbot/node_modules
+kakaotalk_chatbot/node_modules
 
 # 각자 깃에 제외할 경로 적어놓을것
